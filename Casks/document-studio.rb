@@ -17,7 +17,7 @@ cask "document-studio" do
     strategy :github_latest
   end
 
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   app "Document Studio.app"
 

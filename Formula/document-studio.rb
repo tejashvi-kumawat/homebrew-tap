@@ -78,8 +78,11 @@ class DocumentStudio < Formula
     end
 
     system "update-desktop-database", user_apps.to_s if which("update-desktop-database")
+    # gtk-update-icon-cache often fails without an index.theme; skip quietly.
     icon_dir = opt_share/"icons/hicolor"
-    system "gtk-update-icon-cache", "-f", icon_dir.to_s if which("gtk-update-icon-cache") && icon_dir.directory?
+    if which("gtk-update-icon-cache") && icon_dir.directory? && (icon_dir/"index.theme").exist?
+      system "gtk-update-icon-cache", "-f", icon_dir.to_s
+    end
   end
 
   def caveats
